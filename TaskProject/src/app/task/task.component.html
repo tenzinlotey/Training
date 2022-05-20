@@ -1,0 +1,56 @@
+<p>task works!</p>
+<div class="row text-center container">
+    <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+        <input type="text" #name  class="form-control" placeholder="Task" required>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-4 ">
+        <button class="btn btn-primary " type="submit" (click)="addTask(name.value)"> Submit</button>
+    </div>
+    
+</div>
+
+<hr>
+
+<div class="container">
+    <table class="table striped-border text-center">
+        <thead>
+            <tr>
+                <th>S No.</th>
+                <th>Task</th>
+                <th>Assigned Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of Task;let i=index;">
+                <td>{{i+1}}</td>
+                <td>{{data.taskName}}</td>
+                <td>{{data.Date}}</td>
+                <td>
+                    <div *ngIf="data.Status == 'active'">
+                        <button class="btn btn-primary col-6">active</button><br><br>
+                        <button class="btn btn-danger" (click)="taskStatus(data,'deleted')">Delete</button>
+                        &nbsp;
+                        <button class="btn btn-success" (click)="taskStatus(data,'completed')">Completed</button>
+                        &nbsp;
+                        <button class="btn btn-warning" (click)="taskStatus(data,'deactivated')">Deactivate</button>
+                    </div>
+                    <div *ngIf = "data.Status == 'deleted'">
+                        <button class="btn btn-danger">Deleted</button><br>
+                        <span>Deleted at: {{data.Date}}</span>
+                    </div>
+                    <div *ngIf = "data.Status == 'completed'">
+                        <button class="btn btn-success">Completed</button>
+                    </div>
+                    <div *ngIf = "data.Status == 'deactivated'">
+                        <button class="btn btn-warning">Deactivated</button><br><br>
+                        <button class="btn btn-primary" (click)="taskStatus(data,'active')">Activate</button>
+                        &nbsp;
+                        <button class="btn btn-danger" (click)="taskStatus(data,'deleted')">Delete</button>
+                    </div>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
